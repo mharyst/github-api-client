@@ -1,0 +1,80 @@
+{
+  "env": {
+    "browser": true,
+    "commonjs": true,
+    "es6": true
+  },
+  "extends": ["eslint:all", "plugin:react/recommended"],
+  "parserOptions": {
+    "ecmaFeatures": {
+      "experimentalObjectRestSpread": true,
+      "jsx": true
+    },
+    "sourceType": "module"
+  },
+  "plugins": [
+    "react"
+  ],
+  "parser": "babel-eslint",
+  "globals": {
+    "_": false,
+    "React": false,
+    "PropTypes": false
+  },
+  "rules": {
+    "no-underscore-dangle": 0,
+    "generator-star-spacing": 0,
+    "quotes":[1, "single"],
+    "strict": 0,
+    "indent": ["error", 2, {"SwitchCase": 1}],
+    "linebreak-style": ["error", "unix"],
+    "semi": ["error", "never"],
+    "eol-last": "error",
+    "space-before-blocks": "error",
+    "space-before-function-paren": ["error", "never"],
+    "space-infix-ops": "error",
+    "prefer-const": ["error", {"destructuring": "all"}],
+    "no-multiple-empty-lines": ["error", {"max": 2}],
+    "id-length": "off",
+    "sort-imports": "off",
+    "sort-keys": "off",
+    "object-curly-newline": "off",
+    "quote-props": "off",
+    "padded-blocks": ["error", {"blocks": "never", "switches": "never"}],
+    "new-cap": "off",
+    "max-len": ["error", 120],
+    "no-undefined": "off",
+    "no-void": "off",
+    "newline-per-chained-call": "off",
+    "newline-after-var": "off",
+    "one-var": "off",
+    "arrow-body-style": ["error", "as-needed"],
+    "no-ternary": "off",
+    "object-property-newline": "off",
+    "func-style": "off",
+    "capitalized-comments": "off",
+    "require-jsdoc": "off",
+    "no-inline-comments": "off",
+    "line-comment-position": "off",
+    "spaced-comment": "off",
+    "no-warning-comments": "off",
+    "no-shadow": "off",
+    "newline-before-return": "off",
+    "no-magic-numbers": "off",
+    "no-confusing-arrow": "off",
+    "no-use-before-define": "off",
+    "no-extra-parens": "off",
+    "no-path-concat": "off",
+    "no-mixed-operators": "off",
+    "class-methods-use-this": "off",
+    "arrow-parens": "off",
+    "no-invalid-this": "off",
+    "multiline-ternary": "off",
+    "no-unused-expressions": ["error", { "allowShortCircuit": true, "allowTernary": true }],
+    "dot-location": "off",
+    "global-require": "off",
+    "default-case": "off",
+    "max-statements": ["error", 20],
+    "react/no-unknown-property": [0, {"ignore": ["class"]}]
+  }
+}
