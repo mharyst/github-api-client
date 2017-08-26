@@ -1,13 +1,13 @@
 import {Component, PropTypes} from 'preact'
 
-export default class Search extends Component {
+export class Search extends Component {
 
   static propTypes = {
     onSubmit: PropTypes.func
   }
 
   state = {
-    value: 'mharyst'
+    value: 'shvaikalesh'
   }
 
   onChange = ({target: {value}}) => {

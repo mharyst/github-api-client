@@ -1,7 +1,7 @@
 /*eslint camelcase: 0*/
 import {Component, PropTypes} from 'preact'
 
-export default class Card extends Component {
+export class Card extends Component {
 
   static propTypes = {
     name: PropTypes.string,
@@ -9,13 +9,14 @@ export default class Card extends Component {
     fork: PropTypes.string,
     stargazers_count: PropTypes.string,
     updated_at: PropTypes.string,
-    language: PropTypes.string
+    language: PropTypes.string,
+    onClick: PropTypes.func
   }
 
   render() {
-    const {name, description, fork, stargazers_count, updated_at, language} = this.props
+    const {name, description, fork, stargazers_count, updated_at, language, onClick} = this.props
     return (
-      <div>
+      <div onClick={onClick}>
         <div>{name}</div>
         <div>{description}</div>
         <div>{fork}</div>
