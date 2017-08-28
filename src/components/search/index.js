@@ -1,17 +1,25 @@
 import {Component, PropTypes} from 'preact'
+import css from './style.css'
 
-export default class Search extends Component {
+export class Search extends Component {
 
   static propTypes = {
     onSubmit: PropTypes.func
   }
 
   state = {
-    value: 'mharyst'
+    value: 'ttsugriy'
   }
 
   onChange = ({target: {value}}) => {
     this.setState({value})
+  }
+
+  handleKeyDown = event => {
+    if (event.keyCode === 13) {
+      event.preventDefault()
+      this.search()
+    }
   }
 
   search = () => {
@@ -20,7 +28,7 @@ export default class Search extends Component {
 
   render() {
     return (
-      <div>
+      <div class={css.search} onKeyDown={this.handleKeyDown}>
         <input onChange={this.onChange} value={this.state.value}/>
         <button onClick={this.search}>Search</button>
       </div>

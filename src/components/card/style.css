@@ -1,0 +1,7 @@
+.card > * {
+  padding-bottom: 5px;
+}
+
+.name {
+  font-weight: 700
+}
