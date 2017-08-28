@@ -5,12 +5,35 @@ import {Search, Card, Window, RepositoryData} from '../../components'
 
 export default class Home extends Component {
 
-  search = value => {
-    fetch(`https://api.github.com/users/${value}/repos`)
+  state = {
+    allLoaded: false,
+    repositories: []
+  }
+
+  search = (value, page = 1) => {
+    fetch(`https://api.github.com/users/${value}/repos?page=${page}`)
       .then(response => response.json())
       .then(repositories => {
-        this.setState({repositories})
+        let newState = {
+          repositories: [
+            ...this.state.repositories,
+            ...repositories
+          ], value}
+        if (repositories.length / 30 % 1 !== 0) {
+          newState = {
+            ...newState,
+            allLoaded: true}
+        }
+        if (page === 1) {
+          newState = {repositories, value, allLoaded: false}
+        }
+        this.setState(newState)
       })
+  }
+
+  loadMore = () => {
+    const page = Math.round(this.state.repositories.length / 30) + 1
+    this.search(this.state.value, page)
   }
 
   openRepoDetails = key => {
@@ -62,22 +85,27 @@ export default class Home extends Component {
   }
 
   render() {
-    const {repositories, showModal, repositoryData, repositoryInfoLoading} = this.state
+    const {allLoaded, repositories, showModal, repositoryData, repositoryInfoLoading} = this.state
     return (
       <div class={css.home}>
         <h1>Home</h1>
         <p>Enter owner (organization or user) name.</p>
         <Search onSubmit={this.search}/>
 
-        {repositories &&
-          repositories.map((repository, key) => (
-            <Card
-              {...repository}
-              onClick={() => this.openRepoDetails(key)}
-              key={repository.id}
-            />
-          ))
+        {repositories.length
+          ? [
+            repositories.map((repository, key) => (
+              <Card
+                {...repository}
+                onClick={() => this.openRepoDetails(key)}
+                key={repository.id}
+              />
+            )),
+            !allLoaded && <button onClick={this.loadMore}>Load more</button>
+          ]
+          : null
         }
+
 
         {showModal &&
           <Window close={this.closeModal}>

@@ -8,7 +8,7 @@ export class Search extends Component {
   }
 
   state = {
-    value: 'facebook'
+    value: 'ttsugriy'
   }
 
   onChange = ({target: {value}}) => {
