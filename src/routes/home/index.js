@@ -1,5 +1,6 @@
+/*eslint camelcase: 0*/
 import {Component} from 'preact'
-import style from './style'
+import css from './style'
 import {Search, Card, Window, RepositoryData} from '../../components'
 
 export default class Home extends Component {
@@ -7,23 +8,30 @@ export default class Home extends Component {
   search = value => {
     fetch(`https://api.github.com/users/${value}/repos`)
       .then(response => response.json())
-      .then(result => {
-        this.setState({result})
+      .then(repositories => {
+        this.setState({repositories})
       })
   }
 
-  openRepoDetails = ({name, user}) => {
+  openRepoDetails = key => {
+    const {name, owner: {login}, url, html_url, fork} = this.state.repositories[key]
     this.openModal()
     this.setState({repositoryInfoLoading: true})
     Promise.all([
-      this.getContributors(name, user),
-      this.getLanguages(name, user)
+      this.getContributors(name, login),
+      this.getLanguages(name, login),
+      this.getPulls(name, login)
     ])
       .then(result => {
         this.setState({
           repositoryData: {
+            name,
+            url,
+            html_url,
+            fork,
             contributors: result[0],
-            languages: result[1]
+            languages: result[1],
+            pulls: result[2]
           },
           repositoryInfoLoading: false
         })
@@ -33,13 +41,16 @@ export default class Home extends Component {
   getContributors = (repoName, user) => (
     fetch(`https://api.github.com/repos/${user}/${repoName}/contributors`)
       .then(response => response.json())
-      .then(contributors => contributors)
   )
 
   getLanguages = (repoName, user) => (
     fetch(`https://api.github.com/repos/${user}/${repoName}/languages`)
       .then(response => response.json())
-      .then(languages => languages)
+  )
+
+  getPulls = (repoName, user) => (
+    fetch(`https://api.github.com/repos/${user}/${repoName}/pulls?state=open&sort=popularity&direction=desc`)
+      .then(response => response.json())
   )
 
   openModal = () => {
@@ -51,18 +62,18 @@ export default class Home extends Component {
   }
 
   render() {
-    const {result, showModal, repositoryData, repositoryInfoLoading} = this.state
+    const {repositories, showModal, repositoryData, repositoryInfoLoading} = this.state
     return (
-      <div class={style.home}>
+      <div class={css.home}>
         <h1>Home</h1>
         <p>Enter owner (organization or user) name.</p>
         <Search onSubmit={this.search}/>
 
-        {result &&
-          result.map(repository => (
+        {repositories &&
+          repositories.map((repository, key) => (
             <Card
               {...repository}
-              onClick={() => this.openRepoDetails({name: repository.name, user: repository.owner.login})}
+              onClick={() => this.openRepoDetails(key)}
               key={repository.id}
             />
           ))
@@ -71,8 +82,8 @@ export default class Home extends Component {
         {showModal &&
           <Window close={this.closeModal}>
             {repositoryInfoLoading
-              ? <div>loading...</div>
-              : <RepositoryData data={repositoryData}/>}
+              ? <div class={css.loading}>loading...</div>
+              : <RepositoryData {...repositoryData}/>}
           </Window>
         }
 

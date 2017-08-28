@@ -21,7 +21,8 @@
     "eslint": "^4.5.0",
     "eslint-plugin-react": "^7.3.0",
     "if-env": "^1.0.0",
-    "preact-cli": "^1.4.1"
+    "preact-cli": "^1.4.1",
+    "webpack-svgstore-plugin": "^4.0.1"
   },
   "dependencies": {
     "lodash": "^4.17.4",

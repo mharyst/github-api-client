@@ -6,13 +6,20 @@ import _ from 'lodash'
 export class RepositoryData extends Component {
 
   static propTypes = {
-    data: PropTypes.object
+    languages: PropTypes.object,
+    contributors: PropTypes.object,
+    url: PropTypes.string,
+    html_url: PropTypes.string,
+    name: PropTypes.string,
+    fork: PropTypes.bool,
+    pulls: PropTypes.object
   }
 
   render() {
-    const {data: {languages, contributors}} = this.props
+    const {languages, contributors, pulls, url, name, fork, html_url} = this.props
     return (
       <div class={css.repository}>
+        <h2><a href={html_url}>{name}</a></h2>
         {languages &&
           <div>
             <h3>Languages:</h3>
@@ -31,6 +38,23 @@ export class RepositoryData extends Component {
               </div>
             ))}
           </div>
+        }
+        {fork &&
+          <div>
+            <h3>Forked from:</h3>
+            <a href={url} target={'_blank'}>{url}</a>
+          </div>
+        }
+        {pulls.length
+          ? <div>
+            <h3>Pull requests:</h3>
+            {_.map(_.take(pulls, 5), ({html_url, title}) => (
+              <div key={html_url}>
+                <a href={html_url} target={'_blank'}>{title}</a>
+              </div>
+            ))}
+          </div>
+          : null
         }
       </div>
     )
