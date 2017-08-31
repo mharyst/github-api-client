@@ -4,6 +4,17 @@ import css from './style'
 import {Search, Card, Window, RepositoryData} from '../../components'
 import {ParseGithubLink} from '../../utils/githubLinkParser'
 
+const checkStatus = response => {
+  const {statusText, status} = response
+  if (status === 404) {
+    throw new Error(statusText)
+  }
+  if (status === 403) {
+    throw new Error(statusText)
+  }
+  return response
+}
+
 export default class Home extends Component {
 
   state = {
@@ -14,13 +25,18 @@ export default class Home extends Component {
   search = value => {
     const url = `https://api.github.com/users/${value}/repos`
     fetch(url)
+      .then(checkStatus)
       .then(response => {
         const {next, last} = ParseGithubLink(response.headers.get('Link'))
-        this.setState({next, last, allLoaded: !last})
+        this.setState({next, last, allLoaded: !last, searchError: false})
         return response.json()
       })
       .then(repositories => {
         this.setState({repositories, value})
+      })
+      .catch(errorText => {
+        console.log(errorText)
+        this.setState({searchError: true, repositories: []})
       })
   }
 
@@ -41,13 +57,14 @@ export default class Home extends Component {
 
   openRepoDetails = key => {
     const {name, owner: {login}, url, html_url, fork} = this.state.repositories[key]
+    const urls = [
+      `https://api.github.com/repos/${login}/${name}/contributors`,
+      `https://api.github.com/repos/${login}/${name}/languages`,
+      `https://api.github.com/repos/${login}/${name}/pulls?state=open&sort=popularity&direction=desc`
+    ]
     this.openModal()
     this.setState({repositoryInfoLoading: true})
-    Promise.all([
-      this.getContributors(name, login),
-      this.getLanguages(name, login),
-      this.getPulls(name, login)
-    ])
+    Promise.all(this.getData(urls))
       .then(result => {
         this.setState({
           repositoryData: {
@@ -64,19 +81,11 @@ export default class Home extends Component {
       })
   }
 
-  getContributors = (repoName, user) => (
-    fetch(`https://api.github.com/repos/${user}/${repoName}/contributors`)
-      .then(response => response.json())
-  )
-
-  getLanguages = (repoName, user) => (
-    fetch(`https://api.github.com/repos/${user}/${repoName}/languages`)
-      .then(response => response.json())
-  )
-
-  getPulls = (repoName, user) => (
-    fetch(`https://api.github.com/repos/${user}/${repoName}/pulls?state=open&sort=popularity&direction=desc`)
-      .then(response => response.json())
+  getData = urls => (
+    urls.map(url => (
+      fetch(url)
+        .then(response => response.json())
+    ))
   )
 
   openModal = () => {
@@ -88,12 +97,14 @@ export default class Home extends Component {
   }
 
   render() {
-    const {allLoaded, repositories, showModal, repositoryData, repositoryInfoLoading} = this.state
+    const {searchError, allLoaded, repositories, showModal, repositoryData, repositoryInfoLoading} = this.state
     return (
       <div class={css.home}>
         <h1>Home</h1>
         <p>Enter owner (organization or user) name.</p>
         <Search onSubmit={this.search}/>
+
+        {searchError && <div style={{color: 'red'}}>Error while searching</div>}
 
         {repositories.length
           ? [
