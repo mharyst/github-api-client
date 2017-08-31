@@ -2,6 +2,7 @@
 import {Component} from 'preact'
 import css from './style'
 import {Search, Card, Window, RepositoryData} from '../../components'
+import {ParseGithubLink} from '../../utils/githubLinkParser'
 
 export default class Home extends Component {
 
@@ -10,30 +11,32 @@ export default class Home extends Component {
     repositories: []
   }
 
-  search = (value, page = 1) => {
-    fetch(`https://api.github.com/users/${value}/repos?page=${page}`)
-      .then(response => response.json())
+  search = value => {
+    const url = `https://api.github.com/users/${value}/repos`
+    fetch(url)
+      .then(response => {
+        const {next, last} = ParseGithubLink(response.headers.get('Link'))
+        this.setState({next, last, allLoaded: !last})
+        return response.json()
+      })
       .then(repositories => {
-        let newState = {
-          repositories: [
-            ...this.state.repositories,
-            ...repositories
-          ], value}
-        if (repositories.length / 30 % 1 !== 0) {
-          newState = {
-            ...newState,
-            allLoaded: true}
-        }
-        if (page === 1) {
-          newState = {repositories, value, allLoaded: false}
-        }
-        this.setState(newState)
+        this.setState({repositories, value})
       })
   }
 
-  loadMore = () => {
-    const page = Math.round(this.state.repositories.length / 30) + 1
-    this.search(this.state.value, page)
+  loadNext = () => {
+    const {next, last} = this.state
+    fetch(next)
+      .then(response => response.json())
+      .then(repositories => {
+        this.setState({
+          repositories: [
+            ...this.state.repositories,
+            ...repositories
+          ],
+          allLoaded: next === last
+        })
+      })
   }
 
   openRepoDetails = key => {
@@ -101,7 +104,7 @@ export default class Home extends Component {
                 key={repository.id}
               />
             )),
-            !allLoaded && <button onClick={this.loadMore}>Load more</button>
+            !allLoaded && <button onClick={this.loadNext}>Load more</button>
           ]
           : null
         }
