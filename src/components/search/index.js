@@ -1,5 +1,5 @@
 import {Component, PropTypes} from 'preact'
-import css from './style.css'
+// import css from './style.css'
 
 export class Search extends Component {
 
@@ -15,23 +15,17 @@ export class Search extends Component {
     this.setState({value})
   }
 
-  handleKeyDown = event => {
-    if (event.keyCode === 13) {
-      event.preventDefault()
-      this.search()
-    }
-  }
-
-  search = () => {
+  search = event => {
+    event.preventDefault()
     this.props.onSubmit(this.state.value)
   }
 
   render() {
     return (
-      <div class={css.search} onKeyDown={this.handleKeyDown}>
+      <form onSubmit={this.search}>
         <input onChange={this.onChange} value={this.state.value}/>
-        <button onClick={this.search}>Search</button>
-      </div>
+        <button>Search</button>
+      </form>
     )
   }
 }

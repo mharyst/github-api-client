@@ -31,7 +31,7 @@ export class RepositoryData extends Component {
         {contributors &&
           <div>
             <h3>Contributors:</h3>
-            {_.map(_.take(contributors, 3), ({login, contributions, html_url}) => (
+            {_.map(contributors, ({login, contributions, html_url}) => (
               <div key={login}>
                 <a href={html_url} target={'_blank'}>{login}</a>
                 <span>{` – ${contributions}`}</span>
@@ -48,7 +48,7 @@ export class RepositoryData extends Component {
         {pulls.length
           ? <div>
             <h3>Pull requests:</h3>
-            {_.map(_.take(pulls, 5), ({html_url, title}) => (
+            {_.map(pulls, ({html_url, title}) => (
               <div key={html_url}>
                 <a href={html_url} target={'_blank'}>{title}</a>
               </div>

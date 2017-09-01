@@ -17,10 +17,10 @@ export class Card extends Component {
   render() {
     const {name, description, fork, stargazers_count, updated_at, language, onClick} = this.props
     return (
-      <div css={css.card} onClick={onClick}>
+      <div class={css.card} onClick={onClick}>
         <div class={css.name}>{name}</div>
         <div>{description}</div>
-        {fork && <div>forked</div>}
+        {fork && <div>fork</div>}
         <div>Stars: {stargazers_count}</div>
         <div>{updated_at}</div>
         <div>{language}</div>
