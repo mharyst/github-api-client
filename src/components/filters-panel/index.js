@@ -21,15 +21,15 @@ export class FiltersPanel extends Component {
       <div class={css.filterPanel}>
 
         <div class={css.issues}>
+          <label for="issues">Issues</label>
           <input id={'issues'} type={'checkbox'} onChange={() => changeFilter('hasIssues', !hasIssues)}
             checked={hasIssues}/>
-          <label for="issues">Issues</label>
         </div>
 
         <div class={css.topics}>
+          <label for="topics">Topics</label>
           <input id={'topics'} type={'checkbox'} onChange={() => changeFilter('hasTopics', !hasTopics)}
             checked={hasTopics}/>
-          <label for="topics">Topics</label>
         </div>
 
         <div class={css.starred}>

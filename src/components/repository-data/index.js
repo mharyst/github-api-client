@@ -1,7 +1,12 @@
 /*eslint camelcase: 0*/
 import {Component, PropTypes} from 'preact'
 import css from './style.css'
-import _ from 'lodash'
+
+const units = {
+  0: 'Kb',
+  1: 'Mb',
+  2: 'Gb'
+}
 
 export class RepositoryData extends Component {
 
@@ -17,21 +22,29 @@ export class RepositoryData extends Component {
 
   render() {
     const {languages, contributors, pulls, url, name, fork, html_url} = this.props
+    const optimizeSize = (size, unitNumber = 0) => {
+      const result = size / 1024
+      if (result >= 1024) {
+        return optimizeSize(result, unitNumber + 1)
+      }
+      return `${Math.round(result)} ${units[unitNumber]}`
+    }
+    const filteredLanguages = Object.entries(languages).filter(([lang, size]) => size > 1024)
     return (
       <div class={css.repository}>
         <h2><a href={html_url}>{name}</a></h2>
-        {languages &&
+        {filteredLanguages &&
           <div>
             <h3>Languages:</h3>
-            {_.map(languages, (language, size) => (
-              <div key={language}>{`${language} – ${size}`}</div>
+            {filteredLanguages.map(([language, size]) => (
+              <div key={language}>{`${language} – ${optimizeSize(size)}`}</div>
             ))}
           </div>
         }
         {contributors &&
           <div>
             <h3>Contributors:</h3>
-            {_.map(contributors, ({login, contributions, html_url}) => (
+            {contributors.map(({login, contributions, html_url}) => (
               <div key={login}>
                 <a href={html_url} target={'_blank'}>{login}</a>
                 <span>{` – ${contributions}`}</span>
@@ -48,7 +61,7 @@ export class RepositoryData extends Component {
         {pulls.length
           ? <div>
             <h3>Pull requests:</h3>
-            {_.map(pulls, ({html_url, title}) => (
+            {pulls.map(({html_url, title}) => (
               <div key={html_url}>
                 <a href={html_url} target={'_blank'}>{title}</a>
               </div>
