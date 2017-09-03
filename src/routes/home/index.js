@@ -1,7 +1,9 @@
 /*eslint camelcase: 0*/
+/*eslint no-console: 0*/
+/*eslint no-alert: 0*/
 import {Component} from 'preact'
 import css from './style'
-import {Search, Card, Window, RepositoryData, FiltersPanel, Loading} from '../../components'
+import {Search, Card, Window, RepositoryData, FiltersPanel, SortPanel, Loading} from '../../components'
 import {ParseGithubLink} from '../../utils/githubLinkParser'
 import _ from 'lodash'
 
@@ -32,7 +34,9 @@ export default class Home extends Component {
       updated: '',
       type: 'All',
       language: 'All'
-    }
+    },
+    sortBy: 'Repo name',
+    sortOrder: 'desc'
   }
 
   getLanguages = repos => {
@@ -141,6 +145,10 @@ export default class Home extends Component {
     this.setState({filters: {...filters, [name]: value}})
   }
 
+  changeSorting = sortType => {
+    this.setState({sortBy: sortType})
+  }
+
   filterRepo = ({open_issues_count, topics, stargazers_count, updated_at, fork, language}) => {
     const {filters} = this.state
     const filterTypes = {
@@ -164,9 +172,29 @@ export default class Home extends Component {
     return result.every(value => value)
   }
 
+  getSortFunction = (repo1, repo2) => {
+    const {sortBy} = this.state
+    const sortTypes = {
+      'Repo name': () => repo2 - repo1,
+      'Stars count': () => (
+        repo2.stargazers_count - repo1.stargazers_count
+      ),
+      'Open issues count': () => repo2.open_issues_count - repo1.open_issues_count,
+      'Updated date': () => new Date(repo2.updated_at) - new Date(repo1.updated_at)
+    }
+    return sortTypes[sortBy]()
+  }
+
+  sortRepos = () => {
+    const {repositories, sortOrder} = this.state
+    repositories.sort(this.getSortFunction)
+    sortOrder === 'asc' && repositories.reverse()
+  }
+
   render() {
     const {searchError, dialogError, reposLoading, allLoaded, repositories, showModal, repositoryData,
-      repositoryInfoLoading, filters} = this.state
+      repositoryInfoLoading, filters, sortBy} = this.state
+    this.sortRepos()
     const filteredRepos = repositories.filter(repo => this.filterRepo(repo))
     return (
       <div class={css.home}>
@@ -178,6 +206,11 @@ export default class Home extends Component {
         {repositories.length
           ? <FiltersPanel filters={filters} languages={this.getLanguages(repositories)}
             changeFilter={this.changeFilter}/>
+          : null
+        }
+
+        {repositories.length
+          ? <SortPanel sortBy={sortBy} changeSorting={this.changeSorting}/>
           : null
         }
 
