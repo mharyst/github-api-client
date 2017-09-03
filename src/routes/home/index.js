@@ -175,26 +175,29 @@ export default class Home extends Component {
   getSortFunction = (repo1, repo2) => {
     const {sortBy} = this.state
     const sortTypes = {
-      'Repo name': () => repo2 - repo1,
-      'Stars count': () => (
-        repo2.stargazers_count - repo1.stargazers_count
-      ),
+      'Repo name': () => {
+        const textA = repo1.name.toUpperCase()
+        const textB = repo2.name.toUpperCase()
+        if (textA < textB) {
+          return -1
+        }
+        if (textA > textB) {
+          return 1
+        }
+        return 0
+      },
+      'Stars count': () => repo2.stargazers_count - repo1.stargazers_count,
       'Open issues count': () => repo2.open_issues_count - repo1.open_issues_count,
       'Updated date': () => new Date(repo2.updated_at) - new Date(repo1.updated_at)
     }
     return sortTypes[sortBy]()
   }
 
-  sortRepos = () => {
-    const {repositories, sortOrder} = this.state
-    repositories.sort(this.getSortFunction)
-    sortOrder === 'asc' && repositories.reverse()
-  }
-
   render() {
     const {searchError, dialogError, reposLoading, allLoaded, repositories, showModal, repositoryData,
-      repositoryInfoLoading, filters, sortBy} = this.state
-    this.sortRepos()
+      repositoryInfoLoading, filters, sortBy, sortOrder} = this.state
+    repositories.sort(this.getSortFunction)
+    sortOrder === 'asc' && repositories.reverse()
     const filteredRepos = repositories.filter(repo => this.filterRepo(repo))
     return (
       <div class={css.home}>
