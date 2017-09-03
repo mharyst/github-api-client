@@ -1,6 +1,6 @@
 /*eslint camelcase: 0*/
 import {Component, PropTypes} from 'preact'
-import css from './style.css'
+import css from './style.scss'
 
 const units = {
   0: 'Kb',

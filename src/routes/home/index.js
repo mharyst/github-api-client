@@ -2,7 +2,7 @@
 /*eslint no-console: 0*/
 /*eslint no-alert: 0*/
 import {Component} from 'preact'
-import css from './style'
+import css from './style.scss'
 import {Search, Card, Window, RepositoryData, FiltersPanel, SortPanel, Loading} from '../../components'
 import {ParseGithubLink} from '../../utils/githubLinkParser'
 import _ from 'lodash'
@@ -149,6 +149,13 @@ export default class Home extends Component {
     this.setState({sortBy: sortType})
   }
 
+  changeSortOrder = () => {
+    const sortOrder = this.state.sortOrder === 'asc'
+      ? 'desc'
+      : 'asc'
+    this.setState({sortOrder})
+  }
+
   filterRepo = ({open_issues_count, topics, stargazers_count, updated_at, fork, language}) => {
     const {filters} = this.state
     const filterTypes = {
@@ -213,27 +220,34 @@ export default class Home extends Component {
         }
 
         {repositories.length
-          ? <SortPanel sortBy={sortBy} changeSorting={this.changeSorting}/>
+          ? <SortPanel
+            sortBy={sortBy}
+            sortOrder={sortOrder}
+            changeSorting={this.changeSorting}
+            changeSortOrder={this.changeSortOrder}
+          />
           : null
         }
 
         {filteredRepos.length
-          ? filteredRepos.map((repository, key) => (
-            <Card
-              {...repository}
-              onClick={() => this.openRepoDetails(key)}
-              key={repository.id}
-            />
-          ))
+          ? <div class={css.repositories}>
+            {filteredRepos.map((repository, key) => (
+              <Card
+                {...repository}
+                onClick={() => this.openRepoDetails(key)}
+                key={repository.id}
+              />
+            ))}
+          </div>
           : null
         }
 
         {repositories.length && !allLoaded && !reposLoading
-          ? <button onClick={this.loadNext}>Load more</button>
+          ? <div class={css.loadMore} onClick={this.loadNext}>Load more</div>
           : null
         }
 
-        {reposLoading && <Loading />}
+        {reposLoading && <div class={css.loadingWrapper}><Loading /></div>}
 
         {showModal &&
           <Window close={this.closeModal}>

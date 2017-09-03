@@ -1,9 +1,9 @@
 import svg from './loading.svg'
-import css from './style.css'
+import css from './style.scss'
 
 export const Loading = ({width}) => (
   <div class={css.loading}>
-    <img src={svg} width={width || 80}/>
+    <img src={svg} width={width || 60}/>
   </div>
 )
 

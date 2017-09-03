@@ -1,6 +1,6 @@
 /*eslint camelcase: 0*/
 import {Component, PropTypes} from 'preact'
-import css from './style.css'
+import css from './style.scss'
 
 export class Card extends Component {
 
@@ -18,14 +18,14 @@ export class Card extends Component {
     const {name, description, fork, stargazers_count, updated_at, language, onClick} = this.props
     return (
       <div class={css.card} onClick={onClick}>
-        <div class={css.name}>{name}</div>
-        <div>{description}</div>
-        {fork && <div>fork</div>}
-        <div>Stars: {stargazers_count}</div>
-        <div>{updated_at}</div>
-        <div>{language}</div>
-        <br/>
-        <br/>
+        <div class={css.container}>
+          <div class={css.name}>{name}</div>
+          <div>{description}</div>
+          {fork && <div>fork</div>}
+          <div>Stars: {stargazers_count}</div>
+          <div>{updated_at}</div>
+          <div>{language}</div>
+        </div>
       </div>
     )
   }

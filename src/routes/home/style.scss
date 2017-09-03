@@ -1,7 +1,26 @@
 .home {
+  display: flex;
+  flex-direction: column;
 	padding: 56px 20px;
 	min-height: 100%;
 	width: 100%;
+}
+
+.loadMore {
+  width: 10rem;
+  height: 2rem;
+  margin: 0 auto;
+  border-radius: 20px;
+  background-color: #0057ff;
+}
+
+.repositories {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.loadingWrapper {
+  margin-top: 100px;
 }
 
 .loading {
@@ -10,7 +29,6 @@
   align-items: center;
   justify-content: center;
 }
-
 
 .error {
   display: flex;

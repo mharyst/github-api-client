@@ -1,4 +1,4 @@
-import css from './style.css'
+import css from './style.scss'
 
 const sortTypes = [
   'Repo name',
@@ -7,17 +7,21 @@ const sortTypes = [
   'Updated date'
 ]
 
-export const SortPanel = ({sortBy, changeSorting}) => (
+export const SortPanel = ({sortBy, changeSorting, changeSortOrder, sortOrder}) => (
   <div class={css.solrtPanel}>
+    <div>Sort by: </div>
     <select onChange={event => changeSorting(event.target.value)}>
       {sortTypes.map(value => (
         <option value={value} selected={sortBy === value} key={value}>{value}</option>
       ))}
     </select>
+    <div onClick={changeSortOrder}>{sortOrder}</div>
   </div>
 )
 
 SortPanel.propTypes = {
   changeSorting: PropTypes.func.isRequired,
+  changeSortOrder: PropTypes.func.isRequired,
+  sortOrder: PropTypes.string,
   sortBy: PropTypes.string
 }

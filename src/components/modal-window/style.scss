@@ -4,7 +4,7 @@
   height: 100vh;
   top: 0;
   left: 0;
-  background: rgba(0, 0, 0, .5);
+  background: rgba(187, 202, 211, .6);
 }
 
 .container {
@@ -24,6 +24,6 @@
   max-height: 500px;
   padding: 10px;
   background: #fff;
-  border: 1px solid #333;
+  border-radius: 2px;
   overflow: scroll;
 }

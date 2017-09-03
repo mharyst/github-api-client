@@ -1,5 +1,5 @@
 import {Component, PropTypes} from 'preact'
-import css from './style.css'
+import css from './style.scss'
 
 export class Window extends Component {
 
