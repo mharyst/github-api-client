@@ -1,0 +1,37 @@
+.card {
+  cursor: pointer;
+  display: flex;
+  flex: 1 0 26%;
+  margin: 16px;
+  overflow: hidden;
+  transition: .3s all;
+
+  &:hover {
+    box-shadow: 0 2.5rem 5rem -1.65rem rgba(0, 0, 0, .175);
+  }
+
+  & > * {
+    padding-bottom: 5px;
+  }
+}
+
+@media only screen and (max-width: 64em) and (min-width: 40.063em) {
+  .card {
+    flex-basis: 40%;
+    margin: 10px;
+  }
+}
+
+.container {
+  background-color: #fff;
+  box-shadow: 0 3rem 5rem -2rem rgba(0, 0, 0, .1);
+  display: flex;
+  flex-direction: column;
+  padding: 3.5rem 3em;
+  transition: box-shadow .4s;
+  width: 100%;
+}
+
+.name {
+  font-weight: 700;
+}

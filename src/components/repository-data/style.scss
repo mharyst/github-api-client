@@ -1,0 +1,8 @@
+.repository {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+.repository > * {
+  margin-bottom: 10px;
+}
