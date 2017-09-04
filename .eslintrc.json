@@ -19,6 +19,7 @@
   "globals": {
     "_": false,
     "React": false,
+    "h": false,
     "PropTypes": false
   },
   "rules": {

@@ -1,4 +1,4 @@
-.home {
+.app {
   display: flex;
   flex-direction: column;
 	padding: 56px 20px;
@@ -12,11 +12,6 @@
   margin: 0 auto;
   border-radius: 20px;
   background-color: #0057ff;
-}
-
-.repositories {
-  display: flex;
-  flex-wrap: wrap;
 }
 
 .loadingWrapper {

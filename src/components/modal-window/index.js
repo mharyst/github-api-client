@@ -20,7 +20,6 @@ export class Window extends Component {
     }
   }
 
-
   render() {
     const {children, close} = this.props
     return (

@@ -1,24 +1,25 @@
 import {h, Component} from 'preact'
+import {route} from 'preact-router'
 import PropTypes from 'proptypes'
 // import css from './style.scss'
 
 export class Search extends Component {
 
   static propTypes = {
-    onSubmit: PropTypes.func
+    value: PropTypes.string
   }
 
   state = {
-    value: 'facebook'
-  }
-
-  onChange = ({target: {value}}) => {
-    this.setState({value})
+    value: this.props.value
   }
 
   search = event => {
     event.preventDefault()
-    this.props.onSubmit(this.state.value)
+    route(`/${this.state.value}`)
+  }
+
+  onChange = ({target: {value}}) => {
+    this.setState({value})
   }
 
   render() {
