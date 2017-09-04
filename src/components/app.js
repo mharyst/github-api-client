@@ -127,7 +127,7 @@ export default class App extends Component {
 
           <Router onChange={this.handleRoute}>
             <Stream
-              path={`${path}/:user`}
+              path={process.env.PUBLIC_URL + '/:user'}
               repositories={repositories}
               search={this.search}
               openRepoDetails={this.openRepoDetails}/>

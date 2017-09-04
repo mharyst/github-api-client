@@ -6,6 +6,7 @@ import CopyWebpackPlugin from 'copy-webpack-plugin';
 import OfflinePlugin from 'offline-plugin';
 import path from 'path';
 const ENV = process.env.NODE_ENV || 'development';
+const PUBLIC_URL = ENV === 'production' ? 'github-api-client' : ''
 
 const CSS_MAPS = ENV!=='production';
 
@@ -15,7 +16,7 @@ module.exports = {
 
   output: {
     path: path.resolve(__dirname, "docs"),
-    publicPath: './',
+    publicPath: '/github-api-client/',
     filename: 'bundle.js'
   },
 
@@ -96,7 +97,8 @@ module.exports = {
       disable: ENV !== 'production'
     }),
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify(ENV)
+      'process.env.NODE_ENV': JSON.stringify(ENV),
+      'process.env.PUBLIC_URL': JSON.stringify(PUBLIC_URL)
     }),
     new HtmlWebpackPlugin({
       template: './index.ejs',
@@ -151,7 +153,7 @@ module.exports = {
           requestTypes: ['navigate']
         }
       ],
-      publicPath: './'
+      publicPath: '/github-api-client'
     })
   ] : []),
 
