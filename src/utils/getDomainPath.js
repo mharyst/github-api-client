@@ -1,4 +1,2 @@
-export const path = () => {
-  const {host, pathname} = window.location
-  return host.split('.').includes('github', 'io') ? pathname.split('/')[1] : '/'
-}
+const {host, pathname} = window.location
+export const path = host.split('.').includes('github', 'io') ? `/${pathname.split('/')[1]}` : '/'
