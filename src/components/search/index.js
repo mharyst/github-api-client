@@ -11,6 +11,7 @@ export class Search extends Component {
 
   search = event => {
     event.preventDefault()
+    console.log(`${path}${this.state.value}`)
     route(`${path}${this.state.value}`)
   }
 
