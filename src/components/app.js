@@ -30,13 +30,13 @@ export default class App extends Component {
   }
 
   search = value => {
-    this.setState({repositories: [], reposLoading: true})
+    this.setState({value, repositories: [], reposLoading: true})
     const url = `https://api.github.com/users/${value}/repos`
     fetch(url, {headers})
       .then(checkStatus)
       .then(this.setPages)
       .then(repositories => {
-        this.setState({repositories, value, reposLoading: false})
+        this.setState({repositories, reposLoading: false})
       })
       .catch(errorText => {
         console.log(errorText)
@@ -115,13 +115,15 @@ export default class App extends Component {
 
   render() {
     const {searchError, dialogError, reposLoading, allLoaded, repositories, showModal, repositoryData,
-      repositoryInfoLoading} = this.state
+      repositoryInfoLoading, value} = this.state
 
     return (
       <div id="app">
         <Header />
         <div class={style.app}>
           <p>Enter owner (organization or user) name.</p>
+
+          <Search onSubmit={this.search} value={value} />
 
           <Router onChange={this.handleRoute}>
             <Stream

@@ -1,16 +1,11 @@
 import {h, Component} from 'preact'
 import {route} from 'preact-router'
-import PropTypes from 'proptypes'
 // import css from './style.scss'
 
 export class Search extends Component {
 
-  static propTypes = {
-    value: PropTypes.string
-  }
-
   state = {
-    value: this.props.value
+    value: window.location.pathname.split('/')[1]
   }
 
   search = event => {

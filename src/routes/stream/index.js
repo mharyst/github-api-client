@@ -1,9 +1,10 @@
 /*eslint camelcase: 0*/
 import {h, Component} from 'preact'
 import style from './style.scss'
-import {Card, FiltersPanel, SortPanel, Search} from '../../components'
+import {Card, FiltersPanel, SortPanel} from '../../components'
 import PropTypes from 'proptypes'
 import _ from 'lodash'
+import {filtersNormalizer, sortNormalizer} from '../../utils/urlParamsNormalize'
 
 class Stream extends Component {
 
@@ -11,30 +12,40 @@ class Stream extends Component {
     repositories: PropTypes.array,
     openRepoDetails: PropTypes.func,
     user: PropTypes.string,
+    matches: PropTypes.object,
     search: PropTypes.func
   }
 
   state = {
     filters: {
-      hasIssues: false,
-      hasTopics: false,
-      starred: 0,
       updated: '',
       type: 'All',
       language: 'All'
-    },
-    sortBy: 'Repo name',
-    sortOrder: 'desc'
+    }
   }
 
   componentWillMount() {
-    const {user, search} = this.props
+    const {user, search, matches} = this.props
     search(user)
+    this.setState({
+      filters: {
+        ...this.state.filters,
+        ...filtersNormalizer(matches)
+      },
+      ...sortNormalizer(matches)
+    })
   }
 
   componentWillReceiveProps(nextProps) {
-    const {user, search} = this.props
+    const {user, search, matches} = this.props
     user !== nextProps.user && search(user)
+    this.setState({
+      filters: {
+        ...this.state.filters,
+        ...filtersNormalizer(matches)
+      },
+      ...sortNormalizer(matches)
+    })
   }
 
   getLanguages = repos => {
@@ -108,14 +119,12 @@ class Stream extends Component {
     return sortTypes[sortBy]()
   }
 
-  render({openRepoDetails, repositories, user}, {sortOrder, filters, sortBy}) {
+  render({openRepoDetails, repositories}, {sortOrder, filters, sortBy}) {
     repositories.sort(this.getSortFunction)
     sortOrder === 'asc' && repositories.reverse()
     const filteredRepos = repositories.filter(repo => this.filterRepo(repo))
     return (
       <div>
-        <Search onSubmit={this.search} value={user}/>
-
         {repositories.length
           ? (
             <div>
