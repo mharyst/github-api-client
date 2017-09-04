@@ -8,7 +8,7 @@
     "start": "serve build -s -c 1",
     "prestart": "npm run build",
     "build": "cross-env NODE_ENV=production webpack --progress",
-    "prebuild": "mkdirp build && ncp src/assets build/assets",
+    "prebuild": "mkdirp docs && ncp src/assets docs/assets",
     "test": "npm run -s lint && jest --coverage",
     "test:watch": "npm run -s test -- --watch",
     "lint": "eslint src test"
