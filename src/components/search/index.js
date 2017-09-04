@@ -1,16 +1,17 @@
 import {h, Component} from 'preact'
 import {route} from 'preact-router'
 // import css from './style.scss'
+import {path} from '../../utils/getDomainPath'
 
 export class Search extends Component {
 
   state = {
-    value: window.location.pathname.split('/')[1]
+    value: window.location.pathname.split('/').pop()
   }
 
   search = event => {
     event.preventDefault()
-    route(`/${this.state.value}`)
+    route(`${path}${this.state.value}`)
   }
 
   onChange = ({target: {value}}) => {

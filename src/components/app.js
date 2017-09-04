@@ -7,7 +7,7 @@ import Stream from '../routes/stream'
 import style from './app.scss'
 import {ParseGithubLink} from '../utils/githubLinkParser'
 import {checkStatus} from '../utils/checkFetchStatus'
-
+import {path} from '../utils/getDomainPath'
 
 const headers = {'Accept': 'application/vnd.github.mercy-preview+json'}
 
@@ -127,7 +127,7 @@ export default class App extends Component {
 
           <Router onChange={this.handleRoute}>
             <Stream
-              path="/:user"
+              path={`${path}/:user`}
               repositories={repositories}
               search={this.search}
               openRepoDetails={this.openRepoDetails}/>
