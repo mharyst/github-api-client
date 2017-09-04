@@ -1,4 +1,5 @@
-import {Component, PropTypes} from 'preact'
+import {h, Component} from 'preact'
+import PropTypes from 'proptypes'
 // import css from './style.scss'
 
 export class Search extends Component {

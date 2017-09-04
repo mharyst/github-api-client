@@ -1,4 +1,7 @@
 import css from './style.scss'
+import PropTypes from 'proptypes'
+import {h} from 'preact'
+
 
 const sortTypes = [
   'Repo name',

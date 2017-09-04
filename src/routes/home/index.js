@@ -1,8 +1,8 @@
 /*eslint camelcase: 0*/
 /*eslint no-console: 0*/
 /*eslint no-alert: 0*/
-import {Component} from 'preact'
-import css from './style.scss'
+import {h, Component} from 'preact'
+import style from './style.scss'
 import {Search, Card, Window, RepositoryData, FiltersPanel, SortPanel, Loading} from '../../components'
 import {ParseGithubLink} from '../../utils/githubLinkParser'
 import _ from 'lodash'
@@ -207,7 +207,7 @@ export default class Home extends Component {
     sortOrder === 'asc' && repositories.reverse()
     const filteredRepos = repositories.filter(repo => this.filterRepo(repo))
     return (
-      <div class={css.home}>
+      <div class={style.home}>
         <p>Enter owner (organization or user) name.</p>
         <Search onSubmit={this.search}/>
 
@@ -230,7 +230,7 @@ export default class Home extends Component {
         }
 
         {filteredRepos.length
-          ? <div class={css.repositories}>
+          ? <div class={style.repositories}>
             {filteredRepos.map((repository, key) => (
               <Card
                 {...repository}
@@ -243,15 +243,15 @@ export default class Home extends Component {
         }
 
         {repositories.length && !allLoaded && !reposLoading
-          ? <div class={css.loadMore} onClick={this.loadNext}>Load more</div>
+          ? <div class={style.loadMore} onClick={this.loadNext}>Load more</div>
           : null
         }
 
-        {reposLoading && <div class={css.loadingWrapper}><Loading /></div>}
+        {reposLoading && <div class={style.loadingWrapper}><Loading /></div>}
 
         {showModal &&
           <Window close={this.closeModal}>
-            {dialogError && <div class={css.error}>Error getting information about repository</div>}
+            {dialogError && <div class={style.error}>Error getting information about repository</div>}
             {repositoryInfoLoading && !dialogError && <Loading />}
             {!repositoryInfoLoading && !dialogError && <RepositoryData {...repositoryData}/>}
           </Window>
