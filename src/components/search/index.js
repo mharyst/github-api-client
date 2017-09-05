@@ -22,10 +22,11 @@ export class Search extends Component {
   render() {
     return (
       <form class={css.submitForm} onSubmit={this.search}>
-        <div class={css.ico}>
+        <label class={css.ico} for="search">
           <img src={svg} alt="search" width="20"/>
-        </div>
+        </label>
         <input class={css.input}
+          id="search"
           onChange={this.onChange}
           value={this.state.value}
           placeholder="type username or organization here"/>
