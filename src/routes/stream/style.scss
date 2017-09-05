@@ -1,4 +1,32 @@
+.stream {
+  height: 100%;
+  display: flex;
+}
+
+.left {
+  width: 250px;
+  background-color: #fff;
+  padding-top: 20px;
+  box-shadow: 1px -2px 14px 1px rgba(0, 0, 0, 0.1);
+}
+
 .repositories {
   display: flex;
+  flex-wrap: wrap;
+  padding: 20px 20px 0 20px;
+  width: 100%;
+}
+
+.scroll {
+  height: 100%;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.cards {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  height: 100%;
   flex-wrap: wrap;
 }

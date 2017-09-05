@@ -1,11 +1,29 @@
 .filterPanel {
-  border: 1px solid #d3d3d3;
-  border-left: 0;
-  border-right: 0;
+  width: 250px;
   display: flex;
-  margin: 10px 0;
-  padding: 10px 0;
+  flex-direction: column;
+  padding: 0 20px;
   & > * {
+    margin: 10px 0;
+  }
+}
+
+.filter {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  label {
+    width: 95px;
+    font-size: 14px;
     margin-right: 10px;
+  }
+
+  select,
+  input {
+    height: 30px;
+    width: 100%;
+    max-width: 185px;
+    border-radius: 0;
   }
 }

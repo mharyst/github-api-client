@@ -1,7 +1,8 @@
 import {h, Component} from 'preact'
 import {route} from 'preact-router'
-// import css from './style.scss'
+import css from './style.scss'
 import {path} from '../../utils/getDomainPath'
+import svg from './search.svg'
 
 export class Search extends Component {
 
@@ -11,7 +12,6 @@ export class Search extends Component {
 
   search = event => {
     event.preventDefault()
-    console.log(`${path}${this.state.value}`)
     route(`${path}${this.state.value}`)
   }
 
@@ -21,9 +21,14 @@ export class Search extends Component {
 
   render() {
     return (
-      <form onSubmit={this.search}>
-        <input onChange={this.onChange} value={this.state.value}/>
-        <button>Search</button>
+      <form class={css.submitForm} onSubmit={this.search}>
+        <div class={css.ico}>
+          <img src={svg} width="20"/>
+        </div>
+        <input class={css.input}
+          onChange={this.onChange}
+          value={this.state.value}
+          placeholder="type username or organization here"/>
       </form>
     )
   }

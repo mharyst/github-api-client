@@ -22,42 +22,44 @@ export const RepositoryData = ({languages, contributors, pulls, url, name, fork,
   return (
     <div class={css.repository}>
       <h2><a href={html_url}>{name}</a></h2>
-      {filteredLanguages &&
-        <div>
-          <h3>Languages:</h3>
-          {filteredLanguages.map(([language, size]) => (
-            <div key={language}>{`${language} – ${optimizeSize(size)}`}</div>
-          ))}
-        </div>
-      }
-      {contributors &&
-        <div>
-          <h3>Contributors:</h3>
-          {contributors.map(({login, contributions, html_url}) => (
-            <div key={login}>
-              <a href={html_url} target={'_blank'}>{login}</a>
-              <span>{` – ${contributions}`}</span>
-            </div>
-          ))}
-        </div>
-      }
-      {fork &&
-        <div>
-          <h3>Forked from:</h3>
-          <a href={url} target={'_blank'}>{url}</a>
-        </div>
-      }
-      {pulls.length
-        ? <div>
-          <h3>Pull requests:</h3>
-          {pulls.map(({html_url, title}) => (
-            <div key={html_url}>
-              <a href={html_url} target={'_blank'}>{title}</a>
-            </div>
-          ))}
-        </div>
-        : null
-      }
+      <div class={css.data}>
+        {filteredLanguages &&
+          <div class={css.section}>
+            <h3>Languages:</h3>
+            {filteredLanguages.map(([language, size]) => (
+              <div key={language}>{`${language} – ${optimizeSize(size)}`}</div>
+            ))}
+          </div>
+        }
+        {contributors &&
+          <div class={css.section}>
+            <h3>Contributors:</h3>
+            {contributors.map(({login, contributions, html_url}) => (
+              <div key={login}>
+                <a href={html_url} target={'_blank'}>{login}</a>
+                <span>{` – ${contributions}`}</span>
+              </div>
+            ))}
+          </div>
+        }
+        {fork &&
+          <div class={css.section}>
+            <h3>Forked from:</h3>
+            <a href={url} target={'_blank'}>{url}</a>
+          </div>
+        }
+        {pulls.length
+          ? <div class={css.section}>
+            <h3>Pull requests:</h3>
+            {pulls.map(({html_url, title}) => (
+              <div key={html_url}>
+                <a href={html_url} target={'_blank'}>{title}</a>
+              </div>
+            ))}
+          </div>
+          : null
+        }
+      </div>
     </div>
   )
 }

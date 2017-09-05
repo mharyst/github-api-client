@@ -1,3 +1,42 @@
-.search {
-  padding-bottom: 20px;
+.submitForm {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+
+.input {
+  flex: 6;
+  font-size: 20px;
+  text-align: center;
+  border: 0;
+  color: #333;
+  font-weight: 500;
+  box-shadow: none;
+  transition: box-shadow .3s;
+  &:focus {
+    box-shadow: 0 14px 12px -2px rgba(70, 128, 254, .07);
+    outline: 0;
+  }
+  &::-webkit-search-cancel-button {
+    display: none;
+  }
+  &::-webkit-input-placeholder {
+    color: #999;
+    font-weight: 300;
+    font-style: italic;
+  }
+  &::-moz-placeholder {
+    color: #999;
+    font-weight: 300;
+    font-style: italic;
+  }
+}
+
+.ico {
+  width: 65px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #333;
+  background-color: #fff;
 }

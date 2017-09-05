@@ -1,8 +1,22 @@
 .repository {
   display: flex;
   flex-direction: column;
-  padding: 20px;
+  padding: 10px;
+  h2 {
+    text-align: center;
+    a {
+      color: #444;
+      font-weight: 600;
+    }
+  }
 }
-.repository > * {
-  margin-bottom: 10px;
+
+.data {
+  display: flex;
+}
+
+.section {
+  margin-right: 10px;
+  width: 100%;
+  flex: 1;
 }

@@ -1,9 +1,18 @@
+.top {
+  position: fixed;
+  display: flex;
+  width: 100%;
+  height: 65px;
+}
+
 .app {
   display: flex;
   flex-direction: column;
-	padding: 56px 20px;
+	padding-top: 65px;
 	min-height: 100%;
 	width: 100%;
+  height: 100vh;
+  overflow: hidden;
 }
 
 .loadMore {
@@ -15,7 +24,7 @@
 }
 
 .loadingWrapper {
-  margin-top: 100px;
+  height: 100%;
 }
 
 .loading {

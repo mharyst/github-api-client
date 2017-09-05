@@ -38,7 +38,7 @@ class Stream extends Component {
 
   componentWillReceiveProps(nextProps) {
     const {user, search, matches} = this.props
-    user !== nextProps.user && search(user)
+    user !== nextProps.user && search(nextProps.user)
     this.setState({
       filters: {
         ...this.state.filters,
@@ -46,6 +46,16 @@ class Stream extends Component {
       },
       ...sortNormalizer(matches)
     })
+  }
+
+  handleScroll = ({target: {scrollTop, scrollHeight, offsetHeight}}) => {
+    const {allLoaded, reposLoading, loadNext} = this.props
+    if (allLoaded || reposLoading) {
+      return
+    }
+    const scrollValue = scrollTop + offsetHeight
+    const scrollDelta = scrollHeight - scrollValue
+    scrollDelta < 350 && loadNext()
   }
 
   getLanguages = repos => {
@@ -124,34 +134,40 @@ class Stream extends Component {
     sortOrder === 'asc' && repositories.reverse()
     const filteredRepos = repositories.filter(repo => this.filterRepo(repo))
     return (
-      <div>
-        {repositories.length
-          ? (
-            <div>
-              <FiltersPanel
-                filters={filters}
-                languages={this.getLanguages(repositories)}
-                changeFilter={this.changeFilter}/>
-              <SortPanel
-                sortBy={sortBy}
-                changeSorting={this.changeSorting}
-                changeSortOrder={this.changeSortOrder}
-                sortOrder={sortOrder}/>
-            </div>
-          )
-          : null
-        }
-        {filteredRepos.length
-          ? <div class={style.repositories}>
-            {filteredRepos.map((repository, key) => (
-              <Card
-                {...repository}
-                onClick={() => openRepoDetails(key)}
-                key={repository.id}
-              />
-            ))}
+      <div class={style.stream}>
+
+        <div class={style.left}>
+          {repositories.length !== 0 &&
+            <FiltersPanel
+              filters={filters}
+              languages={this.getLanguages(repositories)}
+              changeFilter={this.changeFilter}/>
+          }
+        </div>
+
+        <div class={style.repositories}>
+          {repositories.length !== 0 &&
+            <SortPanel
+              sortBy={sortBy}
+              changeSorting={this.changeSorting}
+              changeSortOrder={this.changeSortOrder}
+              sortOrder={sortOrder}/>
+          }
+
+          <div class={style.scroll} onScroll={this.handleScroll}>
+            {filteredRepos.length !== 0 &&
+              <div class={style.cards}>
+                {filteredRepos.map((repository, key) => (
+                  <Card
+                    {...repository}
+                    onClick={() => openRepoDetails(key)}
+                    key={repository.id}
+                  />
+                ))}
+              </div>
+            }
           </div>
-          : null}
+        </div>
       </div>
     )
   }

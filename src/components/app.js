@@ -1,8 +1,9 @@
 /*eslint no-console: 0*/
+/*eslint camelcase: 0*/
 import {h, Component} from 'preact'
 import {Router} from 'preact-router'
 import {Search, Window, RepositoryData, Loading, Error} from './index.js'
-import {Header} from './header'
+import {Logo} from './logo'
 import Stream from '../routes/stream'
 import style from './app.scss'
 import {ParseGithubLink} from '../utils/githubLinkParser'
@@ -119,28 +120,27 @@ export default class App extends Component {
 
     return (
       <div id="app">
-        <Header />
-        <div class={style.app}>
-          <p>Enter owner (organization or user) name.</p>
-
+        <div class={style.top}>
+          <Logo />
           <Search onSubmit={this.search} value={value} />
+        </div>
+
+        <div class={style.app}>
+
+          {reposLoading && <div class={style.loadingWrapper}><Loading /></div>}
 
           <Router onChange={this.handleRoute}>
             <Stream
               path={`${path}:user`}
               repositories={repositories}
               search={this.search}
+              allLoaded={allLoaded}
+              reposLoading={reposLoading}
+              loadNext={this.loadNext}
               openRepoDetails={this.openRepoDetails}/>
           </Router>
 
           <Error status={searchError}/>
-
-          {repositories.length && !allLoaded && !reposLoading
-            ? <div class={style.loadMore} onClick={this.loadNext}>Load more</div>
-            : null
-          }
-
-          {reposLoading && <div class={style.loadingWrapper}><Loading /></div>}
 
           {showModal &&
             <Window close={this.closeModal}>
