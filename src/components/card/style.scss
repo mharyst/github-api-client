@@ -1,13 +1,24 @@
 .card {
   cursor: pointer;
+  position: relative;
   display: flex;
   flex: 1 0 40%;
   margin: 16px;
   overflow: hidden;
   transition: .3s all;
+  max-height: 260px;
 
   &:hover {
     box-shadow: 0 2.5rem 5rem -1.65rem rgba(0, 0, 0, .175);
+    .name {
+      text-decoration: underline;
+    }
+  }
+
+  &:nth-child(2n+2) {
+    .language span {
+      background-color: red;
+    }
   }
 
   & > * {
@@ -15,10 +26,23 @@
   }
 }
 
-@media screen and (max-width: 900px) {
+.fork {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+@media (max-width: 900px) {
   .card {
     flex-basis: 100%;
     margin: 20px 10px;
+  }
+}
+
+
+@media (min-width: 1600px) {
+  .card {
+    flex-basis: 25%;
   }
 }
 
@@ -33,5 +57,40 @@
 }
 
 .name {
-  font-weight: 700;
+  color: #0366d6;
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.description {
+  color: #586069;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.5;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.bottom {
+  width: 100%;
+  display: flex;
+  margin-top: 20px;
+  justify-content: space-between;
+}
+
+.language {
+  span {
+    position: relative;
+    top: 1px;
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin-right: 5px;
+    background-color: #f34b7d;
+  }
 }

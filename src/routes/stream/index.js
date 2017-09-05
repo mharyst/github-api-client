@@ -154,7 +154,7 @@ class Stream extends Component {
               sortOrder={sortOrder}/>
           }
 
-          <div class={style.scroll} onScroll={this.handleScroll}>
+          <div class={style.scroll} onScroll={this.handleScroll} onTouch={this.handleScroll}>
             {filteredRepos.length !== 0 &&
               <div class={style.cards}>
                 {filteredRepos.map((repository, key) => (
