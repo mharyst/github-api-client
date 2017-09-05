@@ -29,7 +29,7 @@ export class Window extends Component {
           <div class={css.modal} onClick={event => event.stopPropagation()} onKeyDown={this.handleKeyDown}>
             <div>
               <div class={css.closeIco}>
-                <img onClick={close} src={closeSvg} width="16"/>
+                <img onClick={close} src={closeSvg} alt="close" width="16"/>
               </div>
               {children}
             </div>

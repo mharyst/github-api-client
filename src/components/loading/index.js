@@ -5,7 +5,7 @@ import PropTypes from 'proptypes'
 
 export const Loading = ({width}) => (
   <div class={css.loading}>
-    <img src={svg} width={width || 60}/>
+    <img src={svg} alt="loading" width={width || 60}/>
   </div>
 )
 

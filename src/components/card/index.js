@@ -10,14 +10,14 @@ import {colors} from '../../utils/github-colors'
 
 export const Card = ({name, description, fork, stargazers_count, pushed_at, language, onClick, hideLanguages, hideFork}) => (
   <div class={css.card} onClick={onClick}>
-    {fork && !hideFork && <div class={css.fork}><img src={forkSvg} width={15}/></div>}
+    {fork && !hideFork && <div class={css.fork}><img src={forkSvg} alt="fork ico" width={15}/></div>}
     <div class={css.container}>
       <div class={css.name}>{name}</div>
       <div class={css.description}>{description}</div>
       <div class={css.bottom}>
         {language && !hideLanguages &&
           <div class={css.language}><span style={{backgroundColor: `${colors[language]}`}}/>{language}</div>}
-        <div class={css.stars}><img src={starSvg} width={15}/> {formatStars(stargazers_count)}</div>
+        <div class={css.stars}><img src={starSvg} alt="stars" width={15}/> {formatStars(stargazers_count)}</div>
         <div>Updated {formatDate(new Date(pushed_at))}</div>
       </div>
     </div>

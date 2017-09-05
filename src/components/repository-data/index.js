@@ -3,6 +3,7 @@ import {h} from 'preact'
 import PropTypes from 'proptypes'
 import css from './style.scss'
 import {colors} from '../../utils/github-colors'
+import repoSvg from './repo.svg'
 
 const units = {
   0: 'Kb',
@@ -10,7 +11,7 @@ const units = {
   2: 'Gb'
 }
 
-export const RepositoryData = ({languages, contributors, pulls, url, name, fork, html_url}) => {
+export const RepositoryData = ({languages, contributors, pulls, url, name, fork, html_url, user}) => {
   const optimizeSize = (size, unitNumber = 0) => {
     const result = size / 1024
     if (result >= 1024) {
@@ -22,7 +23,10 @@ export const RepositoryData = ({languages, contributors, pulls, url, name, fork,
 
   return (
     <div class={css.repository}>
-      <h2><a href={html_url}>{name}</a></h2>
+      <h2><a href={html_url}>
+        <img src={repoSvg} alt="repository" width={20}/>
+        {name}
+      </a></h2>
       <div class={css.data}>
         {filteredLanguages &&
           <div class={css.section}>
@@ -44,7 +48,7 @@ export const RepositoryData = ({languages, contributors, pulls, url, name, fork,
             {contributors.map(({login, contributions, html_url, avatar_url}) => (
               <div class={css.contributor} key={login}>
                 <a href={html_url} target={'_blank'} class={css.name}>
-                  <img src={avatar_url} width="20" height="20"/>
+                  <img src={avatar_url} width="20" alt="avatar" height="20"/>
                   {login}
                 </a>
                 <span class={css.value}>{contributions} contributions</span>
@@ -78,6 +82,7 @@ RepositoryData.propTypes = {
   languages: PropTypes.object,
   contributors: PropTypes.object,
   url: PropTypes.string,
+  user: PropTypes.string,
   html_url: PropTypes.string,
   name: PropTypes.string,
   fork: PropTypes.bool,

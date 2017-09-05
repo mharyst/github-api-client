@@ -23,7 +23,7 @@ export class Search extends Component {
     return (
       <form class={css.submitForm} onSubmit={this.search}>
         <div class={css.ico}>
-          <img src={svg} width="20"/>
+          <img src={svg} alt="search" width="20"/>
         </div>
         <input class={css.input}
           onChange={this.onChange}

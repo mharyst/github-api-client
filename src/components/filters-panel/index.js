@@ -8,8 +8,11 @@ const typeFilter = [
   'Sources'
 ]
 
-export const FiltersPanel = ({filters: {hasIssues, hasTopics, starred, updated, type, language},
-  changeFilter, languages}) => (
+export const FiltersPanel = ({
+  filters: {hasIssues, hasTopics, starred, updated, type, language},
+  changeFilter,
+  languages
+}) => (
   <div class={css.filterPanel}>
 
     <div class={css.filter}>

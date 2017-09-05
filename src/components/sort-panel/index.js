@@ -19,7 +19,7 @@ export const SortPanel = ({sortBy, changeSorting, changeSortOrder, sortOrder}) =
       ))}
     </select>
     <div class={css.ico} onClick={changeSortOrder}>
-      <img style={{transform: `rotate(${sortOrder === 'desc' ? 0 : 180}deg)`}}src={svg} width="20"/>
+      <img alt="sort order" style={{transform: `rotate(${sortOrder === 'desc' ? 0 : 180}deg)`}}src={svg} width="20"/>
     </div>
   </div>
 )
