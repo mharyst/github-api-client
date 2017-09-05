@@ -5,6 +5,7 @@ import {Router} from 'preact-router'
 import {Search, Window, RepositoryData, Loading, Error} from './index.js'
 import {Logo} from './logo'
 import Stream from '../routes/stream'
+import NotFound from '../routes/404'
 import style from './app.scss'
 import {ParseGithubLink} from '../utils/githubLinkParser'
 import {checkStatus} from '../utils/checkFetchStatus'
@@ -128,6 +129,7 @@ export default class App extends Component {
         <div class={style.app}>
 
           {reposLoading && <div class={style.loadingWrapper}><Loading /></div>}
+          <Error status={searchError}/>
 
           <Router onChange={this.handleRoute}>
             <Stream
@@ -138,9 +140,9 @@ export default class App extends Component {
               reposLoading={reposLoading}
               loadNext={this.loadNext}
               openRepoDetails={this.openRepoDetails}/>
+            <NotFound path={`${path}*`} />
           </Router>
 
-          <Error status={searchError}/>
 
           {showModal &&
             <Window close={this.closeModal}>

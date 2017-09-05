@@ -6,6 +6,7 @@ import CopyWebpackPlugin from 'copy-webpack-plugin';
 import OfflinePlugin from 'offline-plugin';
 import path from 'path';
 const ENV = process.env.NODE_ENV || 'development';
+const PUBLIC_PATH = ENV === 'development' ? '/' : '/github-api-client/'
 
 const CSS_MAPS = ENV!=='production';
 
@@ -14,8 +15,8 @@ module.exports = {
   entry: './index.js',
 
   output: {
-    path: path.resolve(__dirname, "docs"),
-    publicPath: './',
+    path: path.resolve(__dirname, "build"),
+    publicPath: PUBLIC_PATH,
     filename: 'bundle.js'
   },
 
@@ -102,6 +103,11 @@ module.exports = {
       template: './index.ejs',
       minify: { collapseWhitespace: true }
     }),
+    new HtmlWebpackPlugin({
+      template: './index.ejs',
+      filename: '404.html',
+      minify: { collapseWhitespace: true }
+    }),
     new CopyWebpackPlugin([
       { from: './manifest.json', to: './' },
       { from: './favicon.ico', to: './' }
@@ -151,7 +157,7 @@ module.exports = {
           requestTypes: ['navigate']
         }
       ],
-      publicPath: './'
+      publicPath: PUBLIC_PATH
     })
   ] : []),
 
