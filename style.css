@@ -201,9 +201,16 @@ html, body {
   display: flex;
   flex-direction: row;
   margin-bottom: 5px; }
+  ._3jihvj_Up-tuz1IOxjp3Ai img,
+  .j3_cJ434_fQCbZocS1s9w img {
+    border-radius: 50%;
+    margin-right: 5px; }
   ._3jihvj_Up-tuz1IOxjp3Ai .hE_tlitfX01DP22rEPVGL,
   .j3_cJ434_fQCbZocS1s9w .hE_tlitfX01DP22rEPVGL {
     width: 150px; }
+
+.j3_cJ434_fQCbZocS1s9w {
+  height: 24px; }
 
 ._2yM6OhFx5HjcKUTIBPEo20 {
   position: relative;
