@@ -57,7 +57,8 @@ html, body {
   display: flex; }
 
 ._243vNYcz57VESsdO7Xs11D {
-  width: 250px;
+  width: 100%;
+  max-width: 250px;
   background-color: #fff;
   padding-top: 20px;
   box-shadow: 1px -2px 14px 1px rgba(0, 0, 0, 0.1); }
@@ -105,6 +106,10 @@ html, body {
   ._2L3o__MxKGuCEp925JNH2H {
     display: none; } }
 ._2OMFqIDPwJdexfFyau-6sx {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
   color: #f00;
   padding: 10px 20px; }
 ._2j_vHBoK7EtX3ZypjGwc7x {
