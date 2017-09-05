@@ -1,7 +1,7 @@
 {
   "name": "GitHub Api Client",
-  "short_name": "GitHub Client",
-  "start_url": "/",
+  "short_name": "GitHub_Client",
+  "start_url": "/github-api-client/",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#fff",
