@@ -41,9 +41,12 @@ export const RepositoryData = ({languages, contributors, pulls, url, name, fork,
         {contributors &&
           <div class={css.section}>
             <h3>Contributors:</h3>
-            {contributors.map(({login, contributions, html_url}) => (
+            {contributors.map(({login, contributions, html_url, avatar_url}) => (
               <div class={css.contributor} key={login}>
-                <a href={html_url} target={'_blank'} class={css.name}>{login}</a>
+                <a href={html_url} target={'_blank'} class={css.name}>
+                  <img src={avatar_url} width="20" height="20"/>
+                  {login}
+                </a>
                 <span class={css.value}>{contributions} contributions</span>
               </div>
             ))}

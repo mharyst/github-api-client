@@ -160,6 +160,8 @@ class Stream extends Component {
                 {filteredRepos.map((repository, key) => (
                   <Card
                     {...repository}
+                    hideFork={filters.type !== 'All'}
+                    hideLanguages={filters.language !== 'All'}
                     onClick={() => openRepoDetails(key)}
                     key={repository.id}
                   />
