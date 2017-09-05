@@ -25,5 +25,21 @@
     width: 100%;
     max-width: 185px;
     border-radius: 0;
+    border: 0;
+    background: #f6f7fb;
+    padding: 0 10px;
+  }
+  select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    font-size: 14px;
+  }
+  option {
+    font-size: 14px;
+  }
+  input[type=number]::-webkit-inner-spin-button,
+  input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
   }
 }

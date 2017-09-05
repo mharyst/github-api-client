@@ -1,7 +1,7 @@
 import css from './style.scss'
 import PropTypes from 'proptypes'
 import {h} from 'preact'
-
+import svg from './order.svg'
 
 const sortTypes = [
   'Repo name',
@@ -18,7 +18,9 @@ export const SortPanel = ({sortBy, changeSorting, changeSortOrder, sortOrder}) =
         <option value={value} selected={sortBy === value} key={value}>{value}</option>
       ))}
     </select>
-    <div onClick={changeSortOrder}>{sortOrder}</div>
+    <div class={css.ico} onClick={changeSortOrder}>
+      <img style={{transform: `rotate(${sortOrder === 'desc' ? 0 : 180}deg)`}}src={svg} width="20"/>
+    </div>
   </div>
 )
 

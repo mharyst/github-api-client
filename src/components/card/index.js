@@ -2,6 +2,8 @@
 import {h} from 'preact'
 import PropTypes from 'proptypes'
 import css from './style.scss'
+import {formatDate} from '../../utils/formatDate'
+import {formatStars} from '../../utils/format-stars'
 
 export const Card = ({name, description, fork, stargazers_count, pushed_at, language, onClick}) => (
   <div class={css.card} onClick={onClick}>
@@ -9,8 +11,8 @@ export const Card = ({name, description, fork, stargazers_count, pushed_at, lang
       <div class={css.name}>{name}</div>
       <div>{description}</div>
       {fork && <div>fork</div>}
-      <div>Stars: {stargazers_count}</div>
-      <div>{pushed_at}</div>
+      <div>Stars: {formatStars(stargazers_count)}</div>
+      <div>Updated {formatDate(new Date(pushed_at))}</div>
       <div>{language}</div>
     </div>
   </div>
