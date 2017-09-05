@@ -21,9 +21,24 @@
   width: 100%;
   max-width: 800px;
   height: 100%;
-  max-height: 500px;
-  padding: 10px;
+  max-height: 80%;
+  min-height: 300px;
+  padding: 10px 40px;
   background: #fff;
   border-radius: 2px;
   overflow: scroll;
+}
+
+.closeIco {
+  display: flex;
+  height: 20px;
+  justify-content: flex-end;
+  img {
+    cursor: pointer;
+    opacity: .8;
+    transition: opacity .3s;
+    &:hover {
+      opacity: 1;
+    }
+  }
 }

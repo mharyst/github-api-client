@@ -4,8 +4,12 @@
   padding: 10px;
   h2 {
     text-align: center;
+    &:hover {
+      text-decoration: underline;
+    }
     a {
-      color: #444;
+      color: #0366d6;
+      font-size: 26px;
       font-weight: 600;
     }
   }
@@ -13,10 +17,53 @@
 
 .data {
   display: flex;
+  flex-direction: column;
 }
 
 .section {
-  margin-right: 10px;
   width: 100%;
   flex: 1;
+  border-bottom: 1px solid #ededed;
+  padding-bottom: 20px;
+  &:last-child {
+    border: 0
+  }
+}
+
+.language,
+.contributor {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 5px;
+  .name {
+    width: 150px;
+  }
+}
+
+.languageLabel {
+  position: relative;
+  top: 1px;
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin-right: 5px;
+  background-color: #0366d6;
+}
+
+.pull {
+  display: inline-block;
+  padding: 0.3em 0.9em;
+  margin: 0 0.5em 0.5em 0;
+  white-space: nowrap;
+  background-color: #f1f8ff;
+  border-radius: 3px;
+  &:hover {
+    background-color: #ddeeff;
+  }
+}
+
+a {
+  color: #0366d6;
+  text-decoration: none;
 }

@@ -2,6 +2,7 @@
 import {h} from 'preact'
 import PropTypes from 'proptypes'
 import css from './style.scss'
+import {colors} from '../../utils/github-colors'
 
 const units = {
   0: 'Kb',
@@ -15,7 +16,7 @@ export const RepositoryData = ({languages, contributors, pulls, url, name, fork,
     if (result >= 1024) {
       return optimizeSize(result, unitNumber + 1)
     }
-    return `${Math.round(result)} ${units[unitNumber]}`
+    return `${parseFloat(result).toFixed(1)} ${units[unitNumber]}`
   }
   const filteredLanguages = Object.entries(languages).filter(([lang, size]) => size > 1024)
 
@@ -27,7 +28,13 @@ export const RepositoryData = ({languages, contributors, pulls, url, name, fork,
           <div class={css.section}>
             <h3>Languages:</h3>
             {filteredLanguages.map(([language, size]) => (
-              <div key={language}>{`${language} – ${optimizeSize(size)}`}</div>
+              <div class={css.language} key={language}>
+                <div class={css.name}>
+                  <span class={css.languageLabel} style={{backgroundColor: `${colors[language]}`}}/>
+                  {language}
+                </div>
+                <div class={css.value}>{optimizeSize(size)}</div>
+              </div>
             ))}
           </div>
         }
@@ -35,9 +42,9 @@ export const RepositoryData = ({languages, contributors, pulls, url, name, fork,
           <div class={css.section}>
             <h3>Contributors:</h3>
             {contributors.map(({login, contributions, html_url}) => (
-              <div key={login}>
-                <a href={html_url} target={'_blank'}>{login}</a>
-                <span>{` – ${contributions}`}</span>
+              <div class={css.contributor} key={login}>
+                <a href={html_url} target={'_blank'} class={css.name}>{login}</a>
+                <span class={css.value}>{contributions} contributions</span>
               </div>
             ))}
           </div>
@@ -53,7 +60,7 @@ export const RepositoryData = ({languages, contributors, pulls, url, name, fork,
             <h3>Pull requests:</h3>
             {pulls.map(({html_url, title}) => (
               <div key={html_url}>
-                <a href={html_url} target={'_blank'}>{title}</a>
+                <a href={html_url} class={css.pull} target={'_blank'}>{title}</a>
               </div>
             ))}
           </div>

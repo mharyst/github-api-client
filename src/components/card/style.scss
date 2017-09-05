@@ -6,18 +6,12 @@
   margin: 16px;
   overflow: hidden;
   transition: .3s all;
-  max-height: 260px;
+  max-height: 360px;
 
   &:hover {
     box-shadow: 0 2.5rem 5rem -1.65rem rgba(0, 0, 0, .175);
     .name {
       text-decoration: underline;
-    }
-  }
-
-  &:nth-child(2n+2) {
-    .language span {
-      background-color: red;
     }
   }
 
@@ -60,7 +54,7 @@
   color: #0366d6;
   font-size: 20px;
   font-weight: 600;
-  margin-bottom: 10px;
+  padding-bottom: 10px;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -72,7 +66,7 @@
   text-overflow: ellipsis;
   line-height: 1.5;
   font-size: 14px;
-  margin-bottom: 10px;
+  padding-bottom: 10px;
 }
 
 .bottom {
@@ -80,6 +74,22 @@
   display: flex;
   margin-top: 20px;
   justify-content: space-between;
+  align-items: center;
+}
+
+@media (max-width: 990px) {
+  .bottom {
+    flex-direction: column;
+    & > * {
+      margin-bottom: 10px;
+    }
+  }
+}
+
+@media (max-width: 1080px) {
+  .bottom {
+    font-size: 14px;
+  }
 }
 
 .language {
