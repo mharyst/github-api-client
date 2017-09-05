@@ -127,7 +127,6 @@ export default class App extends Component {
 
         <div class={style.app}>
 
-          {reposLoading && <div class={style.loadingWrapper}><Loading /></div>}
           <Error status={searchError}/>
 
           <Router onChange={this.handleRoute}>
@@ -140,6 +139,7 @@ export default class App extends Component {
               loadNext={this.loadNext}
               openRepoDetails={this.openRepoDetails}/>
           </Router>
+          {reposLoading && <div class={style.loadingWrapper}><Loading /></div>}
 
 
           {showModal &&

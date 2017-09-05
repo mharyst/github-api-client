@@ -36,18 +36,6 @@ class Stream extends Component {
     })
   }
 
-  componentWillReceiveProps(nextProps) {
-    const {user, search, matches} = this.props
-    user !== nextProps.user && search(nextProps.user)
-    this.setState({
-      filters: {
-        ...this.state.filters,
-        ...filtersNormalizer(matches)
-      },
-      ...sortNormalizer(matches)
-    })
-  }
-
   handleScroll = ({target: {scrollTop, scrollHeight, offsetHeight}}) => {
     const {allLoaded, reposLoading, loadNext} = this.props
     if (allLoaded || reposLoading) {
