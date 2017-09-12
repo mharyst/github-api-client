@@ -2,7 +2,7 @@
 * [Demo](https://mharyst.github.io/github-api-client/)
 * [Demo with owner & filters](https://mharyst.github.io/github-api-client/facebook/?sort=updated&order=desc&has_open_issues&starred_gt=200)
 
-![2017-09-05 15 49 45](https://user-images.githubusercontent.com/20457772/30061897-e8138228-9251-11e7-9535-a89beae28ac6.png)
+![2017-09-12 15 25 15](https://user-images.githubusercontent.com/20457772/30325847-02eddae4-97cf-11e7-9e80-c668fa4f70e5.png)
 
 ## Build
 Auto deploy on master from source branch on every commit
